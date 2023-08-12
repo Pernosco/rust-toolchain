@@ -11,6 +11,7 @@ async function run(): Promise<void> {
 
     const opts = args.getToolchainArgs(toolchainOverridePath);
     const rustup = await RustUp.getOrInstall();
+    await rustup.call(["toolchain", "uninstall", "1.54.0"]);
     await rustup.call(["show"]);
 
     let shouldSelfUpdate = true;
