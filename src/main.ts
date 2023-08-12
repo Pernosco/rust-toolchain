@@ -13,7 +13,7 @@ async function run(): Promise<void> {
     const rustup = await RustUp.getOrInstall();
     await rustup.call(["show"]);
 
-    let shouldSelfUpdate = false;
+    let shouldSelfUpdate = true;
     if (opts.profile && !(await rustup.supportProfiles())) {
         shouldSelfUpdate = true;
     }
@@ -24,6 +24,7 @@ async function run(): Promise<void> {
         core.startGroup("Updating rustup");
         try {
             await rustup.selfUpdate();
+            await rustup.call(["show"]);
         } finally {
             core.endGroup();
         }
